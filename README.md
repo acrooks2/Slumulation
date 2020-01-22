@@ -4,8 +4,6 @@ Models exploring slum formations (Updated to NetLogo 6.1.0).
 
 **OriginalModel: Needs updating.**
 
-**DES: Needs updating.**
-
 
 # Data and Models
 

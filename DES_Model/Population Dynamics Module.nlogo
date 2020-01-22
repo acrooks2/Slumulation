@@ -1,4 +1,3 @@
-
 ;;VARIABLE DECLARATION
 globals
 [time
@@ -295,7 +294,7 @@ INPUTBOX
 135
 107
 T
-0.0
+1.0
 1
 0
 Number
@@ -317,7 +316,7 @@ INPUTBOX
 135
 294
 CrudeBirthRate
-0.0
+1.0
 1
 0
 Number
@@ -348,7 +347,7 @@ INPUTBOX
 135
 355
 lifeexp
-0.0
+1.0
 1
 0
 Number
@@ -370,7 +369,7 @@ INPUTBOX
 135
 168
 InitNativePop
-0.0
+1.0
 1
 0
 Number
@@ -443,7 +442,7 @@ INPUTBOX
 136
 232
 InitMigrantPop
-0.0
+1.0
 1
 0
 Number
@@ -454,7 +453,7 @@ INPUTBOX
 135
 416
 avgmigrationrate
-0.0
+1.0
 1
 0
 Number
@@ -480,10 +479,20 @@ INPUTBOX
 135
 479
 avglos
-0.0
+1.0
 1
 0
 Number
+
+TEXTBOX
+150
+220
+300
+262
+Before hitting setup, enter all the input parameters first.
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -813,7 +822,7 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.0.4
+NetLogo 6.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@

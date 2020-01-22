@@ -7,33 +7,33 @@ Models exploring slum formations (Updated to NetLogo 6.1.0).
 **DES: Needs updating.**
 
 
+# Data and Models
 
-## Data and Models
+## Housing Dynamics Module at the City Level
 
-**Housing Dynamics Module at the City Level**
+Click on the image belwo to see a YouTube movie of the model:
 
-Click on the image belwo to see a YouTube movie of the model
 [![slum1](http://img.youtube.com/vi/lLDqwCH6FwY/0.jpg)](http://www.youtube.com/watch?v=lLDqwCH6FwY "Slum1")
 
-Download the model
+Download the model [OriginalModel](OriginalModel)
 
-**Population Growth in DES Framework**
+## Population Growth in DES Framework 
 
 ![PopGrowthDES](PopGrowthDES.png)
 
-Download the DES model 
+Download the DES model [DES_Model](DES_Model)
 
 Download the DES model integrated with the ABM [DES_and_ABM_Integrated_Model](DES_and_ABM_Integrated_Model)
 
- **Integrated Model**
+## Integrated Model 
  
- Click on the image belwo to see a YouTube movie of the model
+ Click on the image belwo to see a YouTube movie of the model:
 
  [![Slumfinal](http://img.youtube.com/vi/hUidTmyLczQ/0.jpg)](http://www.youtube.com/watch?v=hUidTmyLczQ "Slumfinal")
  
 Download the model [(GIS DES and ABM Integrated Model)](GIS_DES_and_ABM_Integrated_Model)
 
-**Slum Locations**
+## Slum Locations 
 
 Download the data [(Geodatabase.zip)](Geodatabase.zip)
 

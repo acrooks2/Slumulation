@@ -1,17 +1,14 @@
 #  An Integrated Simulation Framework to Explore Spatio-temporal Dynamics of Slum Formation in Ahmedabad, India 
 
-Models exploring slum formations. This is still a work in progress as they are updated to NetLogo 6.1.0.
+Models exploring slum formations (Updated to NetLogo 6.1.0).
 
-OriginalModel: Needs updating.
-DES: Needs updating.
+**OriginalModel: Needs updating.**
 
+**DES: Needs updating.**
 
-DES and ABM Integrated Model: Works
 
 
 ## Data and Models
-
-This section provides a selection of models and data used within this project.
 
 **Housing Dynamics Module at the City Level**
 
@@ -25,6 +22,7 @@ Download the model
 ![PopGrowthDES](PopGrowthDES.png)
 
 Download the DES model 
+
 Download the DES model integrated with the ABM [DES_and_ABM_Integrated_Model](DES_and_ABM_Integrated_Model)
 
  **Integrated Model**
@@ -38,7 +36,6 @@ Download the model [(GIS DES and ABM Integrated Model)](GIS_DES_and_ABM_Integrat
 **Slum Locations**
 
 Download the data [(Geodatabase.zip)](Geodatabase.zip)
-
 
 ## References
 
@@ -56,6 +53,3 @@ Download the data [(Geodatabase.zip)](Geodatabase.zip)
 * **Patel, A., Crooks, A. T. and Koizumi, N. (2012)**, Integrating GIS and ABM to Explore Spatio-temporal Dynamics of Slum Formation in Ahmedabad, India, *59th Annual North American Meetings of the Regional Science Association International*, 7th -10th, November, Ottawa, Canada. [(pdf)](https://www.dropbox.com/s/t708bwqkz8etu15/Abstract_Patel_Crooks_Koizumi_NARSC2012.pdf?dl=0).
 * P**atel, A., Crooks, A. T. and Koizumi, N. (2012)**, Integrating GIS and ABM to Explore Spatio-temporal Dynamics of Slum Formation in Mumbai, India, *The Association of American Geographers (AAG) Annual Meeting*, 24th -28th February, New York, NY. [(pdf)](https://www.dropbox.com/s/jpq6mqe8oy9f98x/patelAAG.pdf?dl=0).
 * **Patel, A., Koizumi, N. and Crooks, A. T. (2011)**, Defining Slum Severity in Indian Mega-cities: a Comparison of Mumbai and Kolkata, *Joint North American Meetings of the Regional Science Association International (RSAI) and Second Conference of the Regional Science Association*, 9th-12th November, Miami, FL. [(pdf)](https://www.dropbox.com/s/ah3ru26cao9723m/RSAI.pdf?dl=0).
-
-
-

@@ -10,7 +10,7 @@ breed [movingmembers movingmember] ;TEMPORARY BREED TO MAKE THE COMPUTING FASTER
 ;;SECTION 1. VARIABLE DECLARATION
 ;********************************
 ;GLOBAL VARIABLE DECLARATION
- globals 
+ globals
  [city ;gis
   wardlist ;list
   centralwardlist ;list
@@ -18,68 +18,68 @@ breed [movingmembers movingmember] ;TEMPORARY BREED TO MAKE THE COMPUTING FASTER
   wardpop ;list
   wardslumpop ;list
   wardslumpoppercent ;list
-  
+
   num-developers ;number of developers in the city (for monitoring purpose during model development and verification)
-  
-  max-rent ;initial maximum rent 
+
+  max-rent ;initial maximum rent
   min-rent ;initial lowest rent (calculated based on inequality level specified by the user).
-  highestrent;highest rent in the city during the simulation (most prime property) 
+  highestrent;highest rent in the city during the simulation (most prime property)
   lowestrent ;lowerst rent in the city during the simulation (most inappropriate property)
-  
+
   red-averagerent; to keep track of average rents of poor people in the city
   green-averagerent; to keep track of average rents of rich people in the city
   blue-averagerent; to keep track of average rents of middle-class peopel in the city
-  
+
   red-count; to keep track of number of poor people
   blue-count; to keep track of number of middle-class people
   green-count; to keep track of number of rich people
-  
-  red-density; to keep track of poor people's housing density 
-  blue-density; to keep track of middle-class people's hosuing density 
-  green-density; to keep track of rich people's housing density 
-  
+
+  red-density; to keep track of poor people's housing density
+  blue-density; to keep track of middle-class people's hosuing density
+  green-density; to keep track of rich people's housing density
+
   slum-density; to keep track of density in slums
   central-slum-density
   periphery-slum-density
-  
+
   avg-density; average density in the city
-  
+
   num-searching ;to keep track of how many people are searching house during simulation
-    
+
   cityincome ;total income of the entire economy. updated every iteration.
   numhh
-  
+
   income-red ;share of income of lower income group people
   income-blue ;share of income of middle income group people
   income-green ;share of income of higher income group people
-  
+
   avg-income ;average income
-  
+
   avg-income-red ; average income of poor
   avg-income-blue ;average income of middle-class
   avg-income-green ;average income of rich
-  
+
   population ;total population of the city
-  
+
   slumpop ;total slum population of the city
   centralslumpop ; slum population in the central city
   peripheralslumpop ;slum population in the periphery
-  
+
   slumpoppercent ; percentage slum population  of the city
   centralslumpoppercent ; central city slum population
   peripheryslumpoppercent ; peripheral slum population
-  
+
   num-slums ; number of slums in the city
   central-num-slums ; number of slums in central city
   peripheral-num-slums ;number of slums in peripheral city
- 
+
   smallest-slum
   largest-slum
-    
+
   slumareapercent
-  centralslumareapercent 
-  peripheryslumareapercent 
-  
+  centralslumareapercent
+  peripheryslumareapercent
+
   ward1pop ;ward 1 population
   ward2pop ;ward 2 population
   ward3pop ;ward 3 population
@@ -112,19 +112,19 @@ breed [movingmembers movingmember] ;TEMPORARY BREED TO MAKE THE COMPUTING FASTER
   ward30pop ;ward 9 population
   ward31pop ;ward 9 population
   ward32pop ;ward 9 population
-  ward33pop ;ward 9 population  
-  ward34pop ;ward 9 population  
-  ward35pop ;ward 9 population  
-  ward36pop ;ward 9 population  
-  ward37pop ;ward 9 population  
-  ward38pop ;ward 9 population  
-  ward39pop ;ward 9 population  
-  ward40pop ;ward 9 population  
-  ward41pop ;ward 9 population  
-  ward42pop ;ward 9 population  
-  ward43pop ;ward 9 population  
-  
-  
+  ward33pop ;ward 9 population
+  ward34pop ;ward 9 population
+  ward35pop ;ward 9 population
+  ward36pop ;ward 9 population
+  ward37pop ;ward 9 population
+  ward38pop ;ward 9 population
+  ward39pop ;ward 9 population
+  ward40pop ;ward 9 population
+  ward41pop ;ward 9 population
+  ward42pop ;ward 9 population
+  ward43pop ;ward 9 population
+
+
 ward1slumpop
 ward2slumpop
 ward3slumpop
@@ -213,16 +213,16 @@ ward41slumpoppercent
 ward42slumpoppercent
 ward43slumpoppercent
 
-  
+
   target ;placeholder of a patch until entire family moves-in
-  
+
   n ;from DES2ABM
-  k 
+  k
   m
-  
+
   lifeexp ; life expectancy
-  ;meanage ; average age 
-    
+  ;meanage ; average age
+
   reasonpr ; reason for migration probability list
   reasonlist ; reason for migration list
   y ; temp variable
@@ -230,27 +230,27 @@ ward43slumpoppercent
   zb ; temp variable
   numstate ; number of states
   numreason ; number of resason
-  
+
   deathrate ; number of deaths per thousand population
-   
+
   death ;number of deaths this tick
   everdeath ;total deaths over entire simulation pepriod
   nb ;number of new births placeholder for each tick
   nm ;number of new migrants placeholder for each tick
-  
+
   migrantpop ; number of migrants
   nativepop ; number of natives
-    
+
   MigRate ; migraiton rate
   avglos
   InflatoryIndex ;to boost migration rate (compensate for uncounted out-migration and reverse-migraiton)
   ]
- 
+
  ;TURTLES (AGENTS) VARIABLE DECLARATION
  developers-own ;developer agents' variables
  [no-role?] ; to see if they have no role on that patch
- 
- hhheads-own  
+
+ hhheads-own
  ;household agents' variables
  [income ;hhheads income
   informal? ; household works in informal sector? bulion.
@@ -265,63 +265,63 @@ ward43slumpoppercent
   hhsize ;
   native? ;native or migrant
   age ;
-  life ; 
+  life ;
   reasonmig ;reason for migration. reason 1 = ...
   ru ; rural or urban. rural = 1 and urban = 2
   gender ; migrant's gender. female = 1 male = 2
   originstate ;migrant's state of origin
-   
+
   hh? ;part of household or not
   hhid ;household ID
   hhsizelimit
  ]
- 
- hhmembers-own  
+
+ hhmembers-own
  ;household agents' variables
  [native? ;native or migrant
   age ;
-  life ; 
+  life ;
   los
   stayc
-  
+
   reasonmig ;reason for migration. reason 1 = ...
   ru ; rural or urban. rural = 1 and urban = 2
   gender ; migrant's gender. female = 1 male = 2
   originstate ;migrant's state of origin
-   
+
   hh? ;part of household or not
   hhid ;household ID
   ]
- 
+
 movingmembers-own
 [native? ;native or migrant
   age ;
-  life ; 
+  life ;
   los
   stayc
-  
+
   reasonmig ;reason for migration. reason 1 = ...
   ru ; rural or urban. rural = 1 and urban = 2
   gender ; migrant's gender. female = 1 male = 2
   originstate ;migrant's state of origin
-   
+
   hh? ;part of household or not
   hhid ;household ID
   ]
- 
-newcomers-own  
- 
+
+newcomers-own
+
  [native? ;native or migrant
   age ;
-  life ; 
+  life ;
   los
   stayc
-  
+
   reasonmig ;reason for migration. reason 1 = ...
   ru ; rural or urban. rural = 1 and urban = 2
   gender ; migrant's gender. female = 1 male = 2
   originstate ;migrant's state of origin
-   
+
   hh? ;part of household or not
   hhid ;household ID
   income ;hhheads income
@@ -335,7 +335,7 @@ newcomers-own
   hhsize ;
   hhsizelimit
   ]
- 
+
  patches-own
  [occupied? ; occupancy status of a property
   available? ; availablity status of housing units. a patch might be available even if there are occupants if number of units on that patch is higher than current occupancy
@@ -345,7 +345,7 @@ newcomers-own
   slum-occupants ;number of poor occupants on a particular property
   rent ; economic rent of the property
   rent-payable ; if people start sharing the house, this variable shows the rent that each person is paying on that property (used for people making decision on housing - they are not worreid about the complete rent, they are worried how much they would pay in a shared accomodation)rent payable is lower for poor people if they live in slums (in proportion with how many poor people live there)
-  slum? ; if site is squatted set to true otherwise false (shared facilities are shown as squatted - however, sharing also means apartment building on a land-parcel, not differentiated in this model yet) 
+  slum? ; if site is squatted set to true otherwise false (shared facilities are shown as squatted - however, sharing also means apartment building on a land-parcel, not differentiated in this model yet)
   resicat ;to record residential category. category 3 if occupied by poor, 2 if by middle-class and 1 if rich (useful to calculate density)
   ward ;to record political ward number of city
   withincity?
@@ -358,40 +358,40 @@ newcomers-own
 ;**************************
 to setup ;initial population and environment setup
   __clear-all-and-reset-ticks ;clear remains of previous runs
-    setspatialenvironment ;initial configuration       
+    setspatialenvironment ;initial configuration
     setglobalvariables ; iniital values
     setpatchdefaults
     ask patches with [ward < 44] [setcommoninitconditionspatches]
-    foreach wardlist [crt ?
-    ask patches with [ward = ?] [set pcolor ? / 3 + 205]] ;
-   ;;INITIAL LAND PARCEL AND POPULATION CREATION           
+    foreach wardlist [ ?1 -> crt ?1
+    ask patches with [ward = ?1] [set pcolor ?1 / 3 + 205] ] ;
+   ;;INITIAL LAND PARCEL AND POPULATION CREATION
     ;set centralwardlist []
     ;foreach wardlist [crt ?
      ;if ? <= initialcitylimit [set centralwardlist lput ? centralwardlist]]
     ;set peripheralwardlist []
     ;foreach wardlist [crt ?
      ;if ? > initialcitylimit [set peripheralwardlist lput ? peripheralwardlist]]
-   
-   
-   foreach centralwardlist [crt ?   
-   
-   ask n-of ((percent-prime-land * count patches with [ward = ?] / 100) + (percent-inappropriate-land * count patches with [ward = ?] / 100)) patches with [ward = ?] ;set up patches within user-specified initial city limit 
+
+
+   foreach centralwardlist [ ?1 -> crt ?1
+
+   ask n-of ((percent-prime-land * count patches with [ward = ?1] / 100) + (percent-inappropriate-land * count patches with [ward = ?1] / 100)) patches with [ward = ?1] ;set up patches within user-specified initial city limit
     [ifelse random-float 1 < (percent-prime-land / (percent-prime-land + percent-inappropriate-land)) ;to declare randomly selected patches in the city-center as prime or inadequate land (proportion is user-specified)
       [set rent max-rent sprout 1 [setcommoninitconditionshhheads]] ;create initial land parcels with highest-rent
       [set rent min-rent sprout 1 [setcommoninitconditionshhheads]]] ;land parcels with lowest-rent
-    ask patches with [rent = 0 and ward = ?]
+    ask patches with [rent = 0 and ward = ?1]
     [set rent random-float 1 * (max-rent - min-rent) sprout 1 [setcommoninitconditionshhheads]] ;patches with rent varying (normally distributed) between highest-rent and lowest-rent
-    ask patches [set rent-payable rent] ;initially rent is the rent-payable. rent-payable changes and varies from rent during simulation.    
+    ask patches [set rent-payable rent] ;initially rent is the rent-payable. rent-payable changes and varies from rent during simulation.
    ask hhheads [set income 3.3 * [rent] of patch-here]    ;initially the incomes are sent in accordance with the housing unit they are occupying. i.e. most prime land occupiers are rich, inadequate land occupiers are poor.
    ]
-   
-   foreach peripheralwardlist [crt ?   
-   ask patches with [ward = ?]
+
+   foreach peripheralwardlist [ ?1 -> crt ?1
+   ask patches with [ward = ?1]
    [set rent 0
-     set rent-payable rent]]
-   
+     set rent-payable rent] ]
+
    ask hhheads [update-class update-searching update-willingnesstoshare update-hhmembers update-hhsize] ;Note: update-class requires all agents to be created first so could not be done earlier.
-   ask patches [update-occupancy update-availability update-resicat update-slumstatus]  
+   ask patches [update-occupancy update-availability update-resicat update-slumstatus]
 
 ;;INITIATE GLOBAL VARIABLES
 set cityincome sum [income] of hhheads
@@ -402,21 +402,21 @@ to setspatialenvironment
     set city gis:load-dataset "amc_91_scaled_Project.shp" ; load city with ward boundaries from GIS
     gis:set-world-envelope gis:envelope-of city ; set NetLogo World Envelope same as GIS layers
     gis:set-drawing-color white ; AMC ward boundary color
-    gis:draw city 1 ; AMC ward boundary width    
+    gis:draw city 1 ; AMC ward boundary width
     gis:apply-coverage city "WARD" ward ; apply ward number to patches
     set wardlist [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43]
     set centralwardlist [1 2 3 4 5 6 ]
     set peripheralwardlist [7 10 16 17 18 19 20 21 29 30 37 38 39 40    8 9 11 12 13 14 15 22 23 24 25 26 27 28 31 32 33 34 35 36 41 42 43]
 end
 
-to setglobalvariables 
+to setglobalvariables
     set max-rent 10 ; to set maximum rent of a land-parcel at the start of simulation
     set min-rent max-rent / initialinequality ; to set minimum rent of a land-parcel at the start of simulation. Calculated based on initial inequality level.
     set lifeexp 62 ;life-expectancy at birth
     set InflatoryIndex 0.15 ;compensate for out-migration (census do not provide those who out-migrated)
-    set MigRate (AnnualMigrationRate * (1 + InflatoryIndex)) 
+    set MigRate (AnnualMigrationRate * (1 + InflatoryIndex))
     set avglos 30
- 
+
 
     set n 35
     set k 0
@@ -424,7 +424,7 @@ to setglobalvariables
 
     set numreason 7; number of reasons for migration
     set reasonlist [0 1 2 3 4 5 6 7]
-    set reasonpr   [0 0.174 0.240 0.249 0.428 0.496 0.74 1.0] ; first zero;reason probability  
+    set reasonpr   [0 0.174 0.240 0.249 0.428 0.496 0.74 1.0] ; first zero;reason probability
 end
 
 to setpatchdefaults ;default for the entire city to initiate
@@ -436,7 +436,7 @@ ask patches [set num-units 1;to set initial number of housing units per patch. t
              set slum? false ;to set initial slum status
              set withincity? false
              set reserved? true
-            ]    
+            ]
 end
 
 to setcommoninitconditionspatches ;part of initiation
@@ -445,25 +445,25 @@ to setcommoninitconditionspatches ;part of initiation
    set occupied? false ;to set initial occupancy status
    ;set num-occupants 0 ;to set initial occupancy levels
    set slum-occupants 0 ;to set initial slum occupancy
-   set slum? false ;to set initial slum status 
-   set withincity? true    
-end 
+   set slum? false ;to set initial slum status
+   set withincity? true
+end
 
 to setcommoninitconditionshhheads ;process only for initial population
    set breed hhheads
    set hhid who
-   set old 0 
-   set stay 0 
+   set old 0
+   set stay 0
    set num-houses 1
    set income 3.3 * [rent-payable] of patch-here ;initially the incomes are sent in accordance with the housing unit they are occupying. i.e. most prime land occupiers are rich, inadequate land occupiers are poor.
    ifelse random-float 1 < informalityindex [set informal? true][set informal? false]
-   set hh? true 
-   set age random n 
-   set life n + random m 
-   set los random-exponential avglos 
+   set hh? true
+   set age random n
+   set life n + random m
+   set los random-exponential avglos
    set stayc 0
    hatch random 5  [setinitconditionshhmembers]
-   ifelse random-float 1 < 0.6 [set native? true][set native? false] 
+   ifelse random-float 1 < 0.6 [set native? true][set native? false]
    set class-updated? false
    set hhsizelimit 1 + random 15
    set searching? false
@@ -471,25 +471,25 @@ to setcommoninitconditionshhheads ;process only for initial population
    ;reasonmig ;reason for migration. reason 1 = ...
    ;ru ; rural or urban. rural = 1 and urban = 2
    ;gender ; migrant's gender. female = 1 male = 2
-   ;originstate ;migrant's state of origin  
+   ;originstate ;migrant's state of origin
 end
 
 to setinitconditionshhmembers ;only if called by household head
-  set breed hhmembers 
-  set hh? true 
-  set hhid [hhid] of myself 
+  set breed hhmembers
+  set hh? true
+  set hhid [hhid] of myself
   set native? [native?] of myself
   set age random n
-  set life n + random m   
-  set los random-exponential avglos 
+  set life n + random m
+  set los random-exponential avglos
   set stayc 0
-   
+
   ;reasonmig ;reason for migration. reason 1 = ...
   ;ru ; rural or urban. rural = 1 and urban = 2
   ;gender ; migrant's gender. female = 1 male = 2
   ;originstate ;migrant's state of origin
 end
-  
+
 ;;RENDER INITIAL RENT AS CHOROPLETH
 to RentMap
      ask patches with [withincity?] [recolor-patch]
@@ -504,7 +504,7 @@ to Slumulate
   update-MigRate
   newbirth
   newmigrants
-  settle-hhheads ;to get homes for people who are searching home  
+  settle-hhheads ;to get homes for people who are searching home
   update-hhheads ;update all hhheads at the end of the iteration
   update-patches  ;update all patches at the end of the iteration
   update-developers ;update all developers at the end of the iteration
@@ -512,12 +512,12 @@ to Slumulate
   update-variables ;update all variables at the end of the iteration
   kill-citizens
   out-migrate ;
-  update-age    
-  if ticks > 3 [do-plots] ;to ignore initial burn-in period, we start plotting after 3 time periods.  
+  update-age
+  if ticks > 3 [do-plots] ;to ignore initial burn-in period, we start plotting after 3 time periods.
   if (ticks = SimulationRuntime) [stop] ;to stop at user-specified time period.
-  tick  
+  tick
 end
- 
+
 to update-MigRate
   set MigRate MigRate + 0.015 * population
 end
@@ -535,39 +535,39 @@ end
 
 to newborndefaults
   set native? true
-  set age 0  
+  set age 0
   set life n + random m
-  set los random-exponential avglos 
+  set los random-exponential avglos
   set stayc 0
-     
-  set hh? false    
-  ;NOT RELEVANT 
+
+  set hh? false
+  ;NOT RELEVANT
   ;reasonmig ;reason for migration. reason 1 = ...
   ;ru ; rural or urban. rural = 1 and urban = 2
   ;gender ; migrant's gender. female = 1 male = 2
   ;originstate ;migrant's state of origin
   ;PART OF HHBIRTH
-  ;hhid ;household ID     
+  ;hhid ;household ID
 end
 
 ;;ASSIGN NEW-BORN TO A HOUSEHOLD START
-to hhbirth ;similar to findhh but in this case, hhsizelimit condition is removed. 
+to hhbirth ;similar to findhh but in this case, hhsizelimit condition is removed.
    move-to patch-at random-pxcor random-pycor
    rt random-float 360 ;all directions
    fd random-float 1 ;one step at a time
-   ifelse (not any? hhheads-here)[hhbirth] 
+   ifelse (not any? hhheads-here)[hhbirth]
    [move-to patch-here ; once found a patch, move here
    set breed hhmembers
-   set hh? true ;update search status 
-   set hhid [who] of one-of hhheads-here  
+   set hh? true ;update search status
+   set hhid [who] of one-of hhheads-here
    mergebirth
-   ]        
+   ]
 end
 
 to mergebirth
   ask hhheads-here with [hhid = [hhid] of myself] [update-hhsizelimit1]
 end
-  
+
 to update-hhsizelimit1 ;NO LIMITS IMPOSED ON NEW-BORNS
    set hhsizelimit hhsizelimit + 1
 end
@@ -578,9 +578,9 @@ to newmigrants
   set nm random-poisson MigRate
   crt nm
     [set breed newcomers
-      set hhid -1 
+      set hhid -1
       set hh? false
-      set native? false 
+      set native? false
       let s random-float 1 ; state of origin starts here
       set y 1
   while [y < (numreason + 1)]
@@ -588,48 +588,48 @@ to newmigrants
     [set reasonmig item y reasonlist]
     set y y + 1
     ]
-    ;from HHjoin    
-    if (reasonmig = 1 or reasonmig = 2 or reasonmig = 3 or reasonmig = 7)[hhheaddefaults] 
+    ;from HHjoin
+    if (reasonmig = 1 or reasonmig = 2 or reasonmig = 3 or reasonmig = 7)[hhheaddefaults]
     if (reasonmig = 6)[set breed hhmembers formhh]
     if (reasonmig = 4 or reasonmig = 5) [findhh]
     ]
 end
 
 to hhheaddefaults ;for newly formed households
-  set breed hhheads 
-  set hhid who 
-  set old 0 
-  set stay 0 
+  set breed hhheads
+  set hhid who
+  set old 0
+  set stay 0
   set native? false
   set age k + random n
   set life n + random m
-  set los random-exponential avglos 
+  set los random-exponential avglos
    set stayc 0
-   
+
   set num-houses 1
-  set income random-exponential avg-income ;assign income to new agent based on current income distribution         
-  set searching? true 
+  set income random-exponential avg-income ;assign income to new agent based on current income distribution
+  set searching? true
   set num-houses 0
   ifelse random-float 1 < informalityindex [set informal? true][set informal? false]
   ; from DES2ABM
-  set hh? true  
+  set hh? true
   set hhsizelimit 1 + random 15
   update-hhsize
   update-class
-  update-willingnesstoshare 
+  update-willingnesstoshare
 end
 
 to findhh
-   move-to patch-at random-pxcor random-pycor 
+   move-to patch-at random-pxcor random-pycor
    rt random-float 360 ;all directions
    fd random-float 10 ;one step at a time
    ifelse (not any? hhheads-here with [hhsize < hhsizelimit])[findhh] ;
    [move-to patch-here ; once found a patch, move here
    set breed hhmembers
    hhmemberdefaults
-   set hhid [who] of one-of hhheads-here  
+   set hhid [who] of one-of hhheads-here
    merge
-   ]        
+   ]
  end
 
 to merge
@@ -637,9 +637,9 @@ to merge
 end
 
 to formhh
-  if any? hhheads-here[ 
+  if any? hhheads-here[
   ask one-of hhheads-here [assign-hhid update-hhsize]]
-  hhheaddefaults  
+  hhheaddefaults
 end
 
 
@@ -668,43 +668,43 @@ end
 to kill-citizens
   set death count hhheads with [age > life] + count hhmembers with [age > life]
   set everdeath everdeath + death
-  ask hhheads with [age > life] 
+  ask hhheads with [age > life]
     [if hhsize > 1 [updatehhhead]
       create-developer die]
   ask hhmembers with [age > life]
     [die]
-end 
- 
+end
+
 ;to changehhhead
- ;   ifelse hhsize = 1 
+ ;   ifelse hhsize = 1
   ;  [die]
-   ; [updatehhhead die]   
+   ; [updatehhhead die]
 ;end
 
 to updatehhhead
    ask one-of hhmembers-here with [hhid =[hhid] of myself] [set breed hhheads update-household]
 end
 
-to update-household 
+to update-household
      update-hhsize
      set income [income] of myself
      set informal? [informal?] of myself ;set job-type
      set class-updated? [class-updated?] of myself
-     set willing? [willing?] of myself        
-     set searching? [searching?] of myself 
+     set willing? [willing?] of myself
+     set searching? [searching?] of myself
      set old [old] of myself
      set stay [stay] of myself
-     set num-houses [num-houses] of myself 
-     set hhsizelimit [hhsizelimit] of myself - 1  
-     
+     set num-houses [num-houses] of myself
+     set hhsizelimit [hhsizelimit] of myself - 1
+
   ;reasonmig ;reason for migration. reason 1 = ...
   ;ru ; rural or urban. rural = 1 and urban = 2
   ;gender ; migrant's gender. female = 1 male = 2
-  ;originstate ;migrant's state of origin   
+  ;originstate ;migrant's state of origin
   ;hh? ;part of household or not
-  ;hhid ;household ID     
+  ;hhid ;household ID
 end
- 
+
 to out-migrate
   ask hhheads [if stayc >= los [create-developer out-migrate-hhmembers die] ]
   ask hhmembers [if stayc >= los [die]]
@@ -713,8 +713,8 @@ end
 to out-migrate-hhmembers
   ask hhmembers with [hhid = [hhid] of myself][die]
 end
- 
- 
+
+
  ;SETTLE hhheads
  to settle-hhheads
    ask hhheads with [searching?]
@@ -726,10 +726,10 @@ end
  to find-house
    rt random-float 360 ;all directions
    fd random-float 1 ;one step at a time
-   if (any? hhheads-here with [color != [color] of myself]) 
-       or (rent-payable > 0.3 * income) 
+   if (any? hhheads-here with [color != [color] of myself])
+       or (rent-payable > 0.3 * income)
        or (not available?)
-       or (not withincity?) ;; 
+       or (not withincity?) ;;
         [find-house] ;if rent is higher than a person can pay or already occupied by people who wouldn't want to share, keep searching
    ;from HHMove
    move-to patch-here ; once found a patch, move here
@@ -739,15 +739,15 @@ end
    set searching? false ;update search status
    set stay 0 ;restart how long household has lived here
    set num-houses (num-houses + 1); number of houses a household has changed after arriving in the city. for further analysis on residential mobility.
-   ask patch-here [update-occupancy update-availability update-slumstatus update-resicat update-rent-payable] ; to update the newly occupied patch before the next agent starts the search.     
+   ask patch-here [update-occupancy update-availability update-slumstatus update-resicat update-rent-payable] ; to update the newly occupied patch before the next agent starts the search.
  end
- 
+
  ;HOUSEHOLDS JOINS MOVED HOUSEHOLD
  to joinme
     ask movingmembers [set breed hhmembers move-to target]
  end
- 
- 
+
+
  ;UPDATE hhheads
  to update-hhheads
     ask hhheads [update-income update-willingnesstoshare update-searching update-class update-old update-stay update-hhmembers update-hhsize]
@@ -755,29 +755,29 @@ end
   ;UPDATE INCOME OF hhheads
   to update-income
     if (informal? = true) and (color = red) [set income income + (economicgrowthrate / 100) * 0.1 * income]
-    if (informal? = false) and (color = red) [set income income + (economicgrowthrate / 100) * income] 
-    if (color = green) or (color = blue) [set income income + (economicgrowthrate / 100) * income] 
-  end 
-  ;UPDATE WILLINGNESS TO SHARE 
+    if (informal? = false) and (color = red) [set income income + (economicgrowthrate / 100) * income]
+    if (color = green) or (color = blue) [set income income + (economicgrowthrate / 100) * income]
+  end
+  ;UPDATE WILLINGNESS TO SHARE
   to update-willingnesstoshare
-     ifelse rent-payable > ((1 - price-sensitivity) * 0.3 * income) 
+     ifelse rent-payable > ((1 - price-sensitivity) * 0.3 * income)
             [set willing? true]
             [set willing? false]
      if (color = green or color = blue) [set willing? false]
   end
   ;UPDATE SEARCH STATUS
-  to update-searching 
-     ifelse rent-payable > (1 + staying-power) * 0.3 * income 
-        [set searching? true create-developer] 
-        [set searching? false]         
-     if (any? other hhheads-here with [color != [color] of myself]) 
-          [set searching? true]       
+  to update-searching
+     ifelse rent-payable > (1 + staying-power) * 0.3 * income
+        [set searching? true create-developer]
+        [set searching? false]
+     if (any? other hhheads-here with [color != [color] of myself])
+          [set searching? true]
   end
   ;UPDATE INCOME CLASS
   to update-class
-     if income > (mean [income] of hhheads + 1.1 * standard-deviation [income] of hhheads) [set color green set class-updated? true update-hhmembers] 
+     if income > (mean [income] of hhheads + 1.1 * standard-deviation [income] of hhheads) [set color green set class-updated? true update-hhmembers]
      if income < (mean [income] of hhheads - 0.1 * standard-deviation [income] of hhheads) [set color red set class-updated? true update-hhmembers]
-     if (income < (mean [income] of hhheads + 1.1 * standard-deviation [income] of hhheads)) 
+     if (income < (mean [income] of hhheads + 1.1 * standard-deviation [income] of hhheads))
         and (income > (mean [income] of hhheads - 0.1 * standard-deviation [income] of hhheads))[set color blue set class-updated? true update-hhmembers]
   end
   ;UPDATE NUMBER OF YEARS STAYED IN THE CITY
@@ -788,7 +788,7 @@ end
   to update-stay
     set stay (stay + 1)
   end
-  ;UPDATE RENT CHOROPLETH 
+  ;UPDATE RENT CHOROPLETH
   to recolor-patch  ; patch procedure -use color to indicate rent level
      set pcolor scale-color yellow rent lowestrent highestrent
      if (slum? = true) [set pcolor grey]
@@ -796,12 +796,12 @@ end
  ;DEVELOPERS
  ;**********
  to create-developer
-   ask hhheads-here 
-       [if not any? developers-here 
-             and not any? other hhheads-here 
-             and Develop = true 
+   ask hhheads-here
+       [if not any? developers-here
+             and not any? other hhheads-here
+             and Develop = true
              [
-               hatch 1 
+               hatch 1
                [
                  set breed developers set no-role? false set num-units num-units + int random-float 3 set available? true set resicat 0
                  ]
@@ -812,13 +812,13 @@ end
    if hhsize > 1 [
    ask hhmembers-here with [hhid =[hhid] of myself] [set color [color] of myself]]
  end
- 
+
  to update-hhsize
    set hhsize 1 + count hhmembers-here with [hhid = [hhid] of myself]
  end
- 
+
  to update-developers
-    ask developers [check-no-role? exit]  
+    ask developers [check-no-role? exit]
  end
   ;CHECK ROLE
   to check-no-role?
@@ -846,12 +846,12 @@ end
  to update-occupancy
     set num-hhheads count hhheads-here ;number of occupants sharing the property
     ifelse num-hhheads > 0 [set occupied? true][set occupied? false]
-    set num-occupants count hhheads-here + count hhmembers-here 
+    set num-occupants count hhheads-here + count hhmembers-here
  end
  ;UPDATE RESIDENTIAL CATEGORY
  to update-resicat
     if num-hhheads > num-units [set resicat 4]
-    if (any? hhheads-here with [color = red]) and (slum? = false) [set resicat 3]    
+    if (any? hhheads-here with [color = red]) and (slum? = false) [set resicat 3]
     if (any? hhheads-here with [color = blue]) and (slum? = false) [set resicat 2]
     if (any? hhheads-here with [color = green])and (slum? = false)[set resicat 1]
     if num-hhheads = 0 [set resicat 0]
@@ -860,35 +860,35 @@ end
  to update-slumstatus
    if num-hhheads > num-units [set slum? true set slum-occupants num-occupants]
    if num-hhheads < num-units [set slum? false set slum-occupants 0]
-   if num-hhheads = num-units [set slum? false set slum-occupants 0]     
+   if num-hhheads = num-units [set slum? false set slum-occupants 0]
  end
  ;UPDATE AVAILABILITY
- to update-availability  
-    if (any? developers-here) 
+ to update-availability
+    if (any? developers-here)
     [
-     if numhh < num-units [set available? true] 
+     if numhh < num-units [set available? true]
      if numhh = num-units [set available? false]
      ]
- 
+
     if (not any? developers-here)
     [
-      ifelse num-occupants > 0 
+      ifelse num-occupants > 0
              [if ( any? hhheads-here with [willing? = false]) [set available? false]]  ; to declare a land parcel as occupied (and hence not available for people searching home)
-             [set occupied? false set available? true]        
+             [set occupied? false set available? true]
      ] ;otherwise show property as available
  end
  ;UPDATE RENT PAYABLE PER UNIT
  to update-rent-payable
-  if (any? developers-here) [set rent-payable (rent / num-units)]    
-  if (not any? developers-here) 
-  [ 
+  if (any? developers-here) [set rent-payable (rent / num-units)]
+  if (not any? developers-here)
+  [
     if not slum? [set rent-payable rent / num-units]
-    if slum? 
+    if slum?
       [
         set rent-payable rent / num-occupants
          if (Politics = true)
           [
-           
+
 if (ward = 1) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
 if (ward = 2) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
 if (ward = 3) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
@@ -931,14 +931,14 @@ if (ward = 39) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
 if (ward = 40) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
 if (ward = 41) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
 if (ward = 42) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
-if (ward = 43) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]       
+if (ward = 43) [set rent-payable ((1 - ward1slumpoppercent) * (rent-payable))]
            ]
        ]
    ]
 end
 ;;END OF PROCEDURES RELATED TO PATCHES (SPATIAL ENVIRONMENT)
 ;***********************************************************
- 
+
 ;;GLOBAL VARIABLES UPDATE
 ;************************
 to update-variables
@@ -961,7 +961,7 @@ to update-variables
 
    set population (count hhheads + count hhmembers) ;total population of the city
    set numhh count hhheads
-   
+
    set avg-income-red mean [income] of hhheads with [color = red]
    set avg-income-green mean [income] of hhheads with [color = green]
    set avg-income-blue mean [income] of hhheads with [color = blue]
@@ -978,17 +978,17 @@ to update-variables
    set centralslumareapercent (count patches with [slum? = true and ward = 5] / count patches with [occupied? = true and ward = 5]) * 100
    if count patches with [occupied? = true and ward != 5] > 0
    [set peripheryslumareapercent (count patches with [slum? = true and ward != 5] / count patches with [occupied? = true and ward != 5]) * 100]
-   
+
    if num-slums > 0 [set slum-density slumpop / num-slums] ;slum density
-   
+
    if num-slums > 0 [set smallest-slum min [slum-occupants] of patches with [slum? = true]]
    if num-slums > 0 [set largest-slum min [slum-occupants] of patches with [slum? = true]]
-   
-   
+
+
    if central-num-slums > 0 [set central-slum-density centralslumpop / central-num-slums]
    if peripheral-num-slums > 0 [set periphery-slum-density peripheralslumpop / peripheral-num-slums]
-   
- 
+
+
 set num-developers (count developers) ;keep track of properties held by developers
 
 set ward1pop sum [num-occupants] of patches with [ward = 1]
@@ -1122,13 +1122,13 @@ if ward40pop > 0 [set ward40slumpoppercent ward40slumpop / ward40pop]
 if ward41pop > 0 [set ward41slumpoppercent ward41slumpop / ward41pop]
 if ward42pop > 0 [set ward42slumpoppercent ward42slumpop / ward42pop]
 if ward43pop > 0 [set ward43slumpoppercent ward43slumpop / ward43pop]
- 
-   
- if (sum [num-occupants] of patches with [ward < 7] > 0 ) 
+
+
+ if (sum [num-occupants] of patches with [ward < 7] > 0 )
       [set centralslumpoppercent (sum [slum-occupants] of patches with [ward < 7]) / (sum [num-occupants] of patches with [ward < 7]) * 100]
 
- 
- if (sum [num-occupants] of patches with [ward >= 7] > 0 ) 
+
+ if (sum [num-occupants] of patches with [ward >= 7] > 0 )
       [set peripheryslumpoppercent (sum [slum-occupants] of patches with [ward >= 7]) / (sum [num-occupants] of patches with [ward >= 7]) * 100]
 
 if population > 0 [
@@ -1152,7 +1152,7 @@ to do-plots
   set-current-plot-pen "Middle Income Group"
   plot blue-density
   set-current-plot-pen "Higher Income Group"
-  plot green-density 
+  plot green-density
   set-current-plot-pen "Slums"
   plot slum-density
   set-current-plot "Slum Size Distribution"
@@ -1161,10 +1161,10 @@ to do-plots
   set-current-plot "% Slum Population"
   set-current-plot-pen "City"
   plot slumpop / population * 100
-  set-current-plot-pen "Central" 
+  set-current-plot-pen "Central"
   plot centralslumpoppercent
   set-current-plot-pen "Periphery"
-  plot peripheryslumpoppercent       
+  plot peripheryslumpoppercent
 end
 ;; END OF SECTION 3. SIMULATION
 ;******************************
@@ -1174,10 +1174,10 @@ end
 GRAPHICS-WINDOW
 242
 10
-706
-495
-50
-50
+704
+473
+-1
+-1
 4.5
 1
 10
@@ -1263,7 +1263,7 @@ percent-prime-land
 percent-prime-land
 0
 40
-10
+10.0
 1
 1
 percent
@@ -1278,7 +1278,7 @@ percent-inappropriate-land
 percent-inappropriate-land
 0
 40
-20
+20.0
 1
 1
 percent
@@ -1312,7 +1312,7 @@ MONITOR
 964
 242
 HIG Density
-green-density\n
+green-density
 2
 1
 11
@@ -1418,7 +1418,7 @@ economicgrowthrate
 economicgrowthrate
 0
 5
-3
+3.0
 0.1
 1
 Percent
@@ -1469,7 +1469,7 @@ INPUTBOX
 239
 112
 SimulationRuntime
-20
+20.0
 1
 0
 Number
@@ -1759,7 +1759,7 @@ initialcitylimit
 initialcitylimit
 5
 43
-6
+6.0
 1
 1
 NIL
@@ -1774,7 +1774,7 @@ initialinequality
 initialinequality
 1
 20
-10
+10.0
 1
 1
 NIL
@@ -1786,7 +1786,7 @@ INPUTBOX
 236
 171
 AnnualMigrationRate
-10
+10.0
 1
 0
 Number
@@ -1797,7 +1797,7 @@ INPUTBOX
 117
 173
 BirthRate
-24
+24.0
 1
 0
 Number
@@ -2154,9 +2154,8 @@ false
 0
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
-
 @#$#@#$#@
-NetLogo 5.0.2
+NetLogo 6.1.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
@@ -2664,7 +2663,6 @@ true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
-
 @#$#@#$#@
 0
 @#$#@#$#@

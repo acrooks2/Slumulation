@@ -1,63 +1,7 @@
-;;INITIATLIZATION OF MIGRATION MODULE
-breed [natives native]
-breed [migrants migrant]
 
-to setup
-__clear-all-and-reset-ticks ;clear everything from previous runs
-set n 35
-set k 0
-set m 2 * (lifeexp - n)
-crt InitNativePop [set breed natives set age random n set life n + random m set los random-exponential avglos set stay 0]
-crt InitMigrantPop [set breed migrants set age random n set life n + random m set los random-exponential avglos set stay 0]
-set meanage mean [age] of turtles
-set pop count natives
-set everpop 0
-
-
-set time 0
-set pop 0
-set everpop 0
-set numstate 5 ; number of origin states
-set statelist [0 1 2 3 4 5] ; test with five states. add "0" on zeroth position to simplify reference to elements. Eventually expand it to 34
-set originstatepr [0 0.2 0.5 0.7 0.9 1.0] ; cumulative probability of migrant's state of origin. Start with "0" and items will be exactly one more than number of states
-set stateruralpr [0 0.1 0.2 0.3 0.4 0.5] ; state specific probability of rural or urban status
-set stateruralfemalepr [0 0.2 0.2 0.2 0.2 0.2] ;state specific rural migrants gender probability
-set stateurbanfemalepr [0 0.7 0.7 0.7 0.7 0.7] ;state specific urban migrants gender probability
-set numreason 7; number of reasons for migration
-set reasonlist [0 1 2 3 4 5 6 7]
-set stateruralreasonpr    [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0; first zeros
-                           0 0.1 0.2 0.3 0.4 0.5 0.6 1.0 ; first zero;reason probability for state 1 rural
-                           0 0.2 0.4 0.6 0.7 0.8 0.9 1.0 ; first zero ;reason probability for state 2 rural
-                           0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                           0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                           0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                          ];rural reasons stop here
-set stateurbanreasonpr    [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ;urban reasons start here. first zeros
-                           0 0.2 0.5 0.6 0.7 0.8 0.9 1.0 ;first zero;rason probability for state 1 urban
-                           0 0.3 0.5 0.6 0.7 0.8 0.9 1.0
-                           0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                           0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                           0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                           ] ; start with "0"
-set stateruralreasonfemalepr [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0; first zeros
-                              0 0.1 0.2 0.3 0.4 0.5 0.6 1.0 ; first zero;female probability for state 1 rural;
-                              0 0.8 0.6 0.6 0.7 0.7 0.8 1.0
-                              0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                              0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                              0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
-                             ] ;rural reasons stop here
-set stateurbanreasonfemalepr [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
-                               0 0.4 0.2 0.6 0.7 0.8 0.9 1.0 ;urban reasonwise females state 1
-                               0 0.2 0.5 0.6 0.7 0.8 0.9 1.0 ;urban reasonwise females state 2
-                               0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                               0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                               0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
-                              ] ; start with "0"
-update-variables
-end
 ;;VARIABLE DECLARATION
 globals
- [time
+[time
   pop ; total population at time t
   everpop ;total population including those who died
   newpop ; total population after the tick is over
@@ -70,7 +14,7 @@ globals
   nativepop
   numcitizens
 
-statelist ; list of states of origin
+  statelist ; list of states of origin
   originstatepr ; cumulative probability of migrant's state of origin
   stateruralpr ; state specific probability of rural or urban status
   stateruralfemalepr ;state specific rural migrants gender probability
@@ -85,14 +29,15 @@ statelist ; list of states of origin
   zb ; temp variable
   numstate ; number of states
   numreason ; number of resason
-
   n
   m
   k
   meanage
-  ]
+]
+
 turtles-own
-[age
+[
+  age
   stay
   reasonmig
   ru ; rural or urban. rural = 1 and urban = 2
@@ -100,7 +45,82 @@ turtles-own
   originstate ;migrant's state of origin
   life
   los
+]
+
+breed [natives native]
+breed [migrants migrant]
+
+;;INITIATLIZATION OF MIGRATION MODULE
+to setup
+  __clear-all-and-reset-ticks ;clear everything from previous runs
+  set n 35
+  set k 0
+  set m 2 * (lifeexp - n)
+
+  crt InitNativePop
+  [
+    set breed natives
+    set age random n
+    set life n + random m
+    set los random-exponential avglos
+    set stay 0
   ]
+  crt InitMigrantPop
+  [
+    set breed migrants
+    set age random n
+    set life n + random m
+    set los random-exponential avglos
+    set stay 0
+  ]
+
+  set meanage mean [age] of turtles
+  set pop count natives
+  set everpop 0
+
+  set time 0
+  set pop 0
+  set everpop 0
+  set numstate 5 ; number of origin states
+  set statelist [0 1 2 3 4 5] ; test with five states. add "0" on zeroth position to simplify reference to elements. Eventually expand it to 34
+  set originstatepr [0 0.2 0.5 0.7 0.9 1.0] ; cumulative probability of migrant's state of origin. Start with "0" and items will be exactly one more than number of states
+  set stateruralpr [0 0.1 0.2 0.3 0.4 0.5] ; state specific probability of rural or urban status
+  set stateruralfemalepr [0 0.2 0.2 0.2 0.2 0.2] ;state specific rural migrants gender probability
+  set stateurbanfemalepr [0 0.7 0.7 0.7 0.7 0.7] ;state specific urban migrants gender probability
+  set numreason 7; number of reasons for migration
+  set reasonlist [0 1 2 3 4 5 6 7]
+  set stateruralreasonpr    [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0; first zeros
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0 ; first zero;reason probability for state 1 rural
+    0 0.2 0.4 0.6 0.7 0.8 0.9 1.0 ; first zero ;reason probability for state 2 rural
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+  ];rural reasons stop here
+  set stateurbanreasonpr    [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ;urban reasons start here. first zeros
+    0 0.2 0.5 0.6 0.7 0.8 0.9 1.0 ;first zero;rason probability for state 1 urban
+    0 0.3 0.5 0.6 0.7 0.8 0.9 1.0
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+  ] ; start with "0"
+  set stateruralreasonfemalepr [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0; first zeros
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0 ; first zero;female probability for state 1 rural;
+    0 0.8 0.6 0.6 0.7 0.7 0.8 1.0
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+    0 0.1 0.2 0.3 0.4 0.5 0.6 1.0
+  ] ;rural reasons stop here
+  set stateurbanreasonfemalepr [0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+    0 0.4 0.2 0.6 0.7 0.8 0.9 1.0 ;urban reasonwise females state 1
+    0 0.2 0.5 0.6 0.7 0.8 0.9 1.0 ;urban reasonwise females state 2
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+    0 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+  ] ; start with "0"
+  update-variables
+end
+
+
 ;;SIMULATION RUN OF NATURAL GROWTH MODULE
 to go
   set pop newpop
@@ -117,6 +137,7 @@ to go
   if ticks = T [stop]
   tick
 end
+
 ;; TO CREATE natives
 to newbirth
   set nb random-poisson (CrudeBirthrate * pop / 1000)
@@ -128,51 +149,52 @@ to newbirth
     set stay 0
   ]
 end
+
 to newmigrants
   set nm random-poisson avgmigrationrate
   set nm nm * (1 + InflatoryIndex)
   crt nm
     [set breed migrants
-    set age k + random n
-    set life n + random m
-    set los random-exponential avglos
-    set stay 0
+      set age k + random n
+      set life n + random m
+      set los random-exponential avglos
+      set stay 0
 
-    let s random-float 1 ; state of origin starts here
-  set y 1
-  while [y < (numstate + 1)]
-  [if (s < item y originstatepr) and (s > item (y - 1) originstatepr)
-    [set originstate item y statelist
-      let sr random-float 1 ; rural urban status starts here
-      ifelse sr < item y stateruralpr
-      [set ru 1
-      let rrm random-float 1; reason for migration starts here
-      set za 1
-      while [za < (numreason + 1)]
-      [if (rrm < item (((numreason + 1) * y) + za) stateruralreasonpr) and (rrm > item (((numreason + 1) * y) + (za - 1)) stateruralreasonpr)
-        [set reasonmig item za reasonlist
-         let rrmg random-float 1; gender starts here
-         ifelse (rrmg < item (((numreason + 1) * y) + za) stateruralreasonfemalepr) and (rrmg > item (((numreason + 1) * y) + (za - 1)) stateruralreasonfemalepr)
-           [set gender 1][set gender 2]
+      let s random-float 1 ; state of origin starts here
+      set y 1
+      while [y < (numstate + 1)]
+      [if (s < item y originstatepr) and (s > item (y - 1) originstatepr)
+        [set originstate item y statelist
+          let sr random-float 1 ; rural urban status starts here
+          ifelse sr < item y stateruralpr
+          [set ru 1
+            let rrm random-float 1; reason for migration starts here
+            set za 1
+            while [za < (numreason + 1)]
+            [if (rrm < item (((numreason + 1) * y) + za) stateruralreasonpr) and (rrm > item (((numreason + 1) * y) + (za - 1)) stateruralreasonpr)
+              [set reasonmig item za reasonlist
+                let rrmg random-float 1; gender starts here
+                ifelse (rrmg < item (((numreason + 1) * y) + za) stateruralreasonfemalepr) and (rrmg > item (((numreason + 1) * y) + (za - 1)) stateruralreasonfemalepr)
+                [set gender 1][set gender 2]
+              ]
+              set za za + 1]
           ]
-        set za za + 1]
-      ]
-      [set ru 2
-      let urm random-float 1; reason for migration starts here
-      set zb 1
-      while [zb < (numreason)]
-      [if (urm < item (((numreason + 1) * y) + zb) stateurbanreasonpr) and (urm > item (((numreason + 1) * y) + (zb - 1)) stateurbanreasonpr)
-        [set reasonmig item zb reasonlist
-         let urmg random-float 1; gender starts here
-         ifelse (urmg < item (((numreason + 1) * y) + zb) stateurbanreasonfemalepr) and (urmg > item (((numreason + 1) * y) + (zb - 1)) stateurbanreasonfemalepr)
-           [set gender 1][set gender 2]
+          [set ru 2
+            let urm random-float 1; reason for migration starts here
+            set zb 1
+            while [zb < (numreason)]
+            [if (urm < item (((numreason + 1) * y) + zb) stateurbanreasonpr) and (urm > item (((numreason + 1) * y) + (zb - 1)) stateurbanreasonpr)
+              [set reasonmig item zb reasonlist
+                let urmg random-float 1; gender starts here
+                ifelse (urmg < item (((numreason + 1) * y) + zb) stateurbanreasonfemalepr) and (urmg > item (((numreason + 1) * y) + (zb - 1)) stateurbanreasonfemalepr)
+                [set gender 1][set gender 2]
+              ]
+              set zb zb + 1]
           ]
-        set zb zb + 1]
+        ]
+        set y y + 1
       ]
-    ]
-    set y y + 1
   ]
-    ]
 end
 ;; UPDATE-NATIVES
 to update-citizens
@@ -198,11 +220,9 @@ end
 
 
 
-
-
 to update-variables
   if pop > 0 [
-  set deathrate death / (pop / 1000)]
+    set deathrate death / (pop / 1000)]
   set migrantpop count migrants
   set nativepop count natives
   set numcitizens count turtles
@@ -211,10 +231,10 @@ end
 GRAPHICS-WINDOW
 141
 29
-386
-225
-3
-3
+314
+203
+-1
+-1
 23.6
 1
 10
@@ -275,7 +295,7 @@ INPUTBOX
 135
 107
 T
-10
+0.0
 1
 0
 Number
@@ -297,7 +317,7 @@ INPUTBOX
 135
 294
 CrudeBirthRate
-20
+0.0
 1
 0
 Number
@@ -328,7 +348,7 @@ INPUTBOX
 135
 355
 lifeexp
-60
+0.0
 1
 0
 Number
@@ -350,7 +370,7 @@ INPUTBOX
 135
 168
 InitNativePop
-1000
+0.0
 1
 0
 Number
@@ -423,7 +443,7 @@ INPUTBOX
 136
 232
 InitMigrantPop
-500
+0.0
 1
 0
 Number
@@ -434,7 +454,7 @@ INPUTBOX
 135
 416
 avgmigrationrate
-30
+0.0
 1
 0
 Number
@@ -448,7 +468,7 @@ InflatoryIndex
 InflatoryIndex
 0
 1
-0.15
+0.44
 0.01
 1
 NIL
@@ -460,7 +480,7 @@ INPUTBOX
 135
 479
 avglos
-30
+0.0
 1
 0
 Number
@@ -792,9 +812,8 @@ false
 0
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
-
 @#$#@#$#@
-NetLogo 5.3.1
+NetLogo 6.0.4
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
@@ -880,7 +899,6 @@ true
 0
 Line -7500403 true 150 150 90 180
 Line -7500403 true 150 150 210 180
-
 @#$#@#$#@
 0
 @#$#@#$#@

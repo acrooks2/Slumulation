@@ -6,7 +6,6 @@ OriginalModel: Needs updating.
 DES: Needs updating.
 
 
-GIS DES and ABM Integrated Model: Works.
 DES and ABM Integrated Model: Works
 
 
@@ -25,8 +24,8 @@ Download the model
 
 ![PopGrowthDES](PopGrowthDES.png)
 
-Download the DES model
-Download the DES model integrated with the ABM
+Download the DES model 
+Download the DES model integrated with the ABM [DES_and_ABM_Integrated_Model](DES_and_ABM_Integrated_Model)
 
  **Integrated Model**
  
@@ -34,7 +33,7 @@ Download the DES model integrated with the ABM
 
  [![Slumfinal](http://img.youtube.com/vi/hUidTmyLczQ/0.jpg)](http://www.youtube.com/watch?v=hUidTmyLczQ "Slumfinal")
  
- Download the model
+Download the model [(GIS DES and ABM Integrated Model)](GIS_DES_and_ABM_Integrated_Model)
 
 **Slum Locations**
 

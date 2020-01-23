@@ -2,8 +2,7 @@
 
 Models exploring slum formations (Updated to NetLogo 6.1.0).
 
-**OriginalModel: Needs updating.**
-
+![framework](framwork.png)
 
 # Data and Models
 

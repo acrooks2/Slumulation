@@ -15,7 +15,7 @@ to setup ;initial population and environment setup
     ask patches [set occupied? false] ;to set initial occupancy status
     ask patches [set num-occupants 0] ;to set initial occupancy levels
     ask patches [set slum-occupants 0] ;to set initial slum occupancy
-    ask patches [set slum? false] ;to set initial slum status
+    ask patches [set slum? false] ;to set initial slum status  
    ;;CREATE POLITICAL WARDS
    ask patches with [pxcor > -26 and pxcor < -8 and pycor > -26 and pycor < -8] [set ward 1 set pcolor 71] ;ward 1 - peripheral ward
    ask patches with [pxcor > -9 and pxcor < 9 and pycor > -26 and pycor < -8] [set ward 2 set pcolor 72] ;ward 2 - peripheral ward
@@ -26,16 +26,16 @@ to setup ;initial population and environment setup
    ask patches with [pxcor > -26 and pxcor < -8 and pycor > 8 and pycor < 26] [set ward 7 set pcolor 77] ;ward 7 - peripheral ward
    ask patches with [pxcor > -9 and pxcor < 9 and pycor > 8 and pycor < 26] [set ward 8 set pcolor 78] ;ward 8 - peripheral ward
    ask patches with [pxcor > 8 and pxcor < 26 and pycor > 8 and pycor < 26] [set ward 9 set pcolor 79] ;ward 9 - peripheral ward
-   ;;INITIAL LAND PARCEL AND POPULATION CREATION
-   ask n-of ((percent-prime-land * count patches with [abs pxcor <= initialcitylimit and abs pycor <= initialcitylimit] / 100) + (percent-inappropriate-land * count patches with [abs pxcor < initialcitylimit and abs pycor < initialcitylimit] / 100)) patches with [abs pxcor < initialcitylimit and abs pycor < initialcitylimit] ;set up patches within user-specified initial city limit
+   ;;INITIAL LAND PARCEL AND POPULATION CREATION           
+   ask n-of ((percent-prime-land * count patches with [abs pxcor <= initialcitylimit and abs pycor <= initialcitylimit] / 100) + (percent-inappropriate-land * count patches with [abs pxcor < initialcitylimit and abs pycor < initialcitylimit] / 100)) patches with [abs pxcor < initialcitylimit and abs pycor < initialcitylimit] ;set up patches within user-specified initial city limit 
     [ifelse random-float 1 < (percent-prime-land / (percent-prime-land + percent-inappropriate-land)) ;to declare randomly selected patches in the city-center as prime or inadequate land (proportion is user-specified)
       [set rent max-rent sprout 1 [set breed households set old 0 set stay 0 set num-houses 1]] ;create initial land parcels with highest-rent
       [set rent min-rent sprout 1 [set breed households set old 0 set stay 0 set num-houses 1]]] ;land parcels with lowest-rent
     ask patches with [rent = 0 and abs pxcor <= initialcitylimit and abs pycor <= initialcitylimit]
     [set rent random-float 1 * (max-rent - min-rent) sprout 1 [set breed households set old 0 set stay 0 set num-houses 1]] ;patches with rent varying (normally distributed) between highest-rent and lowest-rent
-    ask patches [set rent-payable rent] ;initially rent is the rent-payable. rent-payable changes and varies from rent during simulation.
+    ask patches [set rent-payable rent] ;initially rent is the rent-payable. rent-payable changes and varies from rent during simulation.    
    ask households [set income 3.3 * [rent] of patch-here
-     ifelse random-float 1 < informalityindex [set informal? true][set informal? false]
+     ifelse random-float 1 < informalityindex [set informal? true][set informal? false]     
      ]    ;initially the incomes are sent in accordance with the housing unit they are occupying. i.e. most prime land occupiers are rich, inadequate land occupiers are poor.
    ask households [update-class update-searching update-willingnesstoshare]
    ask patches [update-occupancy update-availability update-resicat update-slumstatus]
@@ -51,16 +51,16 @@ end
 ;;END OF SECTION 1. INITIALIZATION
 ;*********************************
 
-
+  
 ;;SECTION 2. VARIABLE DECLARATION
 ;********************************
  ;GLOBAL VARIABLE DECLARATION
- globals
+ globals 
  [
   num-developers ;number of developers in the city (for monitoring purpose during model development and verification)
-  max-rent ;initial maximum rent
+  max-rent ;initial maximum rent 
   min-rent ;initial lowest rent (calculated based on inequality level specified by the user).
-  highestrent;highest rent in the city during the simulation (most prime property)
+  highestrent;highest rent in the city during the simulation (most prime property) 
   lowestrent ;lowerst rent in the city during the simulation (most inappropriate property)
   red-averagerent; to keep track of average rents of poor people in the city
   green-averagerent; to keep track of average rents of rich people in the city
@@ -68,9 +68,9 @@ end
   red-count; to keep track of number of poor people
   blue-count; to keep track of number of middle-class people
   green-count; to keep track of number of rich people
-  red-density; to keep track of poor people's housing density
-  blue-density; to keep track of middle-class people's hosuing density
-  green-density; to keep track of rich people's housing density
+  red-density; to keep track of poor people's housing density 
+  blue-density; to keep track of middle-class people's hosuing density 
+  green-density; to keep track of rich people's housing density 
   slum-density; to keep track of density in slums
   central-slum-density
   periphery-slum-density
@@ -78,7 +78,7 @@ end
   num-searching ;to keep track of how many people are searching house during simulation
   time ;to keep track of simulation time lapsed. Unit is a year.
   cityincome ;total income of the entire economy. updated every iteration.
-
+  
   income-red ;share of income of lower income group people
   income-blue ;share of income of middle income group people
   income-green ;share of income of higher income group people
@@ -99,7 +99,7 @@ end
   centralslumpoppercent ; central city slum population
   peripheryslumpoppercent ; peripheral slum population
   slumareapercent
-  centralslumareapercent
+  centralslumareapercent 
   peripheryslumareapercent
   ward1pop ;ward 1 population
   ward2pop ;ward 2 population
@@ -110,8 +110,8 @@ end
   ward7pop ;ward 7 population
   ward8pop ;ward 8 population
   ward9pop ;ward 9 population
-  ward1slumpop ;ward 1 slum population
-  ward2slumpop ;ward 2 slum population
+  ward1slumpop ;ward 1 slum population 
+  ward2slumpop ;ward 2 slum population 
   ward3slumpop ;ward 3 slum population
   ward4slumpop ;ward 4 slum population
   ward5slumpop ;ward 5 slum population
@@ -154,7 +154,7 @@ end
   slum-occupants ;number of poor occupants on a particular property
   rent ; economic rent of the property
   rent-payable ; if people start sharing the house, this variable shows the rent that each person is paying on that property (used for people making decision on housing - they are not worreid about the complete rent, they are worried how much they would pay in a shared accomodation)rent payable is lower for poor people if they live in slums (in proportion with how many poor people live there)
-  slum? ; if site is squatted set to true otherwise false (shared facilities are shown as squatted - however, sharing also means apartment building on a land-parcel, not differentiated in this model yet)
+  slum? ; if site is squatted set to true otherwise false (shared facilities are shown as squatted - however, sharing also means apartment building on a land-parcel, not differentiated in this model yet) 
   resicat ;to record residential category. category 3 if occupied by poor, 2 if by middle-class and 1 if rich (useful to calculate density)
   ward ;to record political ward number of city
  ]
@@ -175,25 +175,25 @@ to Slumulate
   update-time
   if (time > SimulationRuntime) [stop] ;to stop at user-specified time period.
   tick
-  if time > 3 [do-plots] ;to ignore initial burn-in period, we start plotting after 3 time periods.
+  if time > 3 [do-plots] ;to ignore initial burn-in period, we start plotting after 3 time periods.    
 end
  ;PROCEDURES RELATED TO TURTLES (AGENTS)
  ;**************************************
  ;HOUSEHOLDS
  ;**********
  ;CREATE NEW HOUSEHOLDS
- to create-new-households
+ to create-new-households 
   crt (popgrowthrate * population) / 100 ;create new households based on user-specified population growth rate
      [
-      set breed households
+      set breed households 
       set income random-exponential avg-income ;assign income to new agent based on current income distribution
       ifelse random-float 1 < informalityindex [set informal? true][set informal? false] ;set job-type
       update-class
-      update-willingnesstoshare
-      set searching? true
+      update-willingnesstoshare        
+      set searching? true 
       set old 0
       set stay 0
-      set num-houses 0
+      set num-houses 0 
      ] ; new arrival of a migrant on a random place in the city center. set to start searching a house and initially not willing to share. migration rate set by the user.
  end
  ;SETTLE HOUSEHOLDS
@@ -207,15 +207,15 @@ end
  to find-house
    rt random-float 360 ;all directions
    fd random-float 1 ;one step at a time
-   if (any? households-here with [color != [color] of myself])
-       or (rent-payable > 0.3 * income)
-       or (not available?) ;;
+   if (any? households-here with [color != [color] of myself]) 
+       or (rent-payable > 0.3 * income) 
+       or (not available?) ;; 
         [find-house] ;if rent is higher than a person can pay or already occupied by people who wouldn't want to share, keep searching
    move-to patch-here ; once found a patch, move here
    set searching? false ;update search status
    set stay 0 ;restart how long household has lived here
    set num-houses (num-houses + 1); number of houses a household has changed after arriving in the city. for further analysis on residential mobility.
-   ask patch-here [update-occupancy update-availability update-slumstatus update-resicat update-rent-payable] ; to update the newly occupied patch before the next agent starts the search.
+   ask patch-here [update-occupancy update-availability update-slumstatus update-resicat update-rent-payable] ; to update the newly occupied patch before the next agent starts the search.     
  end
  ;UPDATE HOUSEHOLDS
  to update-households
@@ -224,29 +224,29 @@ end
   ;UPDATE INCOME OF HOUSEHOLDS
   to update-income
     if (informal? = true) and (color = red) [set income income + (economicgrowthrate / 100) * 0.1 * income]
-    if (informal? = false) and (color = red) [set income income + (economicgrowthrate / 100) * income]
-    if (color = green) or (color = blue) [set income income + (economicgrowthrate / 100) * income]
-  end
-  ;UPDATE WILLINGNESS TO SHARE
+    if (informal? = false) and (color = red) [set income income + (economicgrowthrate / 100) * income] 
+    if (color = green) or (color = blue) [set income income + (economicgrowthrate / 100) * income] 
+  end 
+  ;UPDATE WILLINGNESS TO SHARE 
   to update-willingnesstoshare
-     ifelse rent-payable > ((1 - price-sensitivity) * 0.3 * income)
+     ifelse rent-payable > ((1 - price-sensitivity) * 0.3 * income) 
             [set willing? true]
             [set willing? false]
      if (color = green or color = blue) [set willing? false]
   end
   ;UPDATE SEARCH STATUS
-  to update-searching
-     ifelse rent-payable > (1 + staying-power) * 0.3 * income
-        [set searching? true create-developer]
-        [set searching? false]
-     if (any? other households-here with [color != [color] of myself])
-          [set searching? true]
+  to update-searching 
+     ifelse rent-payable > (1 + staying-power) * 0.3 * income 
+        [set searching? true create-developer] 
+        [set searching? false]         
+     if (any? other households-here with [color != [color] of myself]) 
+          [set searching? true]       
   end
   ;UPDATE INCOME CLASS
   to update-class
-     if income > (mean [income] of households + 1.1 * standard-deviation [income] of households) [set color green set class-updated? true]
+     if income > (mean [income] of households + 1.1 * standard-deviation [income] of households) [set color green set class-updated? true] 
      if income < (mean [income] of households - 0.1 * standard-deviation [income] of households) [set color red set class-updated? true]
-     if (income < (mean [income] of households + 1.1 * standard-deviation [income] of households))
+     if (income < (mean [income] of households + 1.1 * standard-deviation [income] of households)) 
         and (income > (mean [income] of households - 0.1 * standard-deviation [income] of households))[set color blue set class-updated? true]
   end
   ;UPDATE NUMBER OF YEARS STAYED IN THE CITY
@@ -257,7 +257,7 @@ end
   to update-stay
     set stay (stay + 1)
   end
-  ;UPDATE RENT CHOROPLETH
+  ;UPDATE RENT CHOROPLETH 
   to recolor-patch  ; patch procedure -use color to indicate rent level
      set pcolor scale-color yellow rent lowestrent highestrent
      if (slum? = true) [set pcolor grey]
@@ -265,12 +265,12 @@ end
  ;DEVELOPERS
  ;**********
  to create-developer
-   ask households-here
-       [if not any? developers-here
-             and not any? other households-here
-             and Develop = true
+   ask households-here 
+       [if not any? developers-here 
+             and not any? other households-here 
+             and Develop = true 
              [
-               hatch 1
+               hatch 1 
                [
                  set breed developers set no-role? false set num-units num-units + int random-float 3 set available? true set resicat 0
                  ]
@@ -278,7 +278,7 @@ end
        ]
  end
  to update-developers
-    ask developers [check-no-role? exit]
+    ask developers [check-no-role? exit]  
  end
   ;CHECK ROLE
   to check-no-role?
@@ -310,7 +310,7 @@ end
  ;UPDATE RESIDENTIAL CATEGORY
  to update-resicat
     if num-occupants > num-units [set resicat 4]
-    if (any? households-here with [color = red]) and (slum? = false) [set resicat 3]
+    if (any? households-here with [color = red]) and (slum? = false) [set resicat 3]    
     if (any? households-here with [color = blue]) and (slum? = false) [set resicat 2]
     if (any? households-here with [color = green])and (slum? = false)[set resicat 1]
     if num-occupants = 0 [set resicat 0]
@@ -319,30 +319,30 @@ end
  to update-slumstatus
    if num-occupants > num-units [set slum? true set slum-occupants num-occupants]
    if num-occupants < num-units [set slum? false set slum-occupants 0]
-   if num-occupants = num-units [set slum? false set slum-occupants 0]
+   if num-occupants = num-units [set slum? false set slum-occupants 0]     
  end
  ;UPDATE AVAILABILITY
- to update-availability
-    if (any? developers-here)
+ to update-availability  
+    if (any? developers-here) 
     [
-     if num-occupants < num-units [set available? true]
+     if num-occupants < num-units [set available? true] 
      if num-occupants = num-units [set available? false]
      ]
-
+ 
     if (not any? developers-here)
     [
-      ifelse num-occupants > 0
+      ifelse num-occupants > 0 
              [if (any? households-here with [willing? = false]) [set available? false]]  ; to declare a land parcel as occupied (and hence not available for people searching home)
-             [set occupied? false set available? true]
+             [set occupied? false set available? true]        
      ] ;otherwise show property as available
  end
  ;UPDATE RENT PAYABLE PER UNIT
  to update-rent-payable
-  if (any? developers-here) [set rent-payable (rent / num-units)]
-  if (not any? developers-here)
-  [
+  if (any? developers-here) [set rent-payable (rent / num-units)]    
+  if (not any? developers-here) 
+  [ 
     if not slum? [set rent-payable rent / num-units]
-    if slum?
+    if slum? 
       [
         set rent-payable rent / num-occupants
          if (Politics = true)
@@ -362,7 +362,7 @@ end
 end
 ;;END OF PROCEDURES RELATED TO PATCHES (SPATIAL ENVIRONMENT)
 ;***********************************************************
-
+ 
 ;;GLOBAL VARIABLES UPDATE
 ;************************
 to update-variables
@@ -384,7 +384,7 @@ to update-variables
    set num-searching (count households with [searching?])
 
    set population (count households) ;total population of the city
-
+   
    set avg-income-red mean [income] of households with [color = red]
    set avg-income-green mean [income] of households with [color = green]
    set avg-income-blue mean [income] of households with [color = blue]
@@ -401,17 +401,17 @@ to update-variables
    set centralslumareapercent (count patches with [slum? = true and ward = 5] / count patches with [occupied? = true and ward = 5]) * 100
    if count patches with [occupied? = true and ward != 5] > 0
    [set peripheryslumareapercent (count patches with [slum? = true and ward != 5] / count patches with [occupied? = true and ward != 5]) * 100]
-
+   
    if num-slums > 0 [set slum-density slumpop / num-slums] ;slum density
-
+   
    if num-slums > 0 [set smallest-slum min [slum-occupants] of patches with [slum? = true]]
    if num-slums > 0 [set largest-slum min [slum-occupants] of patches with [slum? = true]]
-
-
+   
+   
    if central-num-slums > 0 [set central-slum-density centralslumpop / central-num-slums]
    if peripheral-num-slums > 0 [set periphery-slum-density peripheralslumpop / peripheral-num-slums]
-
-
+   
+ 
    set num-developers (count developers) ;keep track of properties held by developers
 
    set ward1pop sum [num-occupants] of patches with [ward = 1] ;ward-wise population
@@ -445,7 +445,7 @@ to update-variables
    if ward9pop > 0 [set ward9slumpoppercent ward9slumpop / ward9pop];ward 9 slum population in percent
 
    set centralslumpoppercent (ward5slumpoppercent) * 100
-   if (sum [num-occupants] of patches with [ward != 5] > 0 )
+   if (sum [num-occupants] of patches with [ward != 5] > 0 ) 
       [set peripheryslumpoppercent (sum [slum-occupants] of patches with [ward != 5]) / (sum [num-occupants] of patches with [ward != 5]) * 100]
 end
 ;;UPDATE TIME
@@ -465,7 +465,7 @@ to do-plots
   set-current-plot-pen "Middle Income Group"
   plot blue-density
   set-current-plot-pen "Higher Income Group"
-  plot green-density
+  plot green-density 
   set-current-plot-pen "Slums"
   plot slum-density
   set-current-plot "Slum Size Distribution"
@@ -474,10 +474,10 @@ to do-plots
   set-current-plot "% Slum Population"
   set-current-plot-pen "City"
   plot slumpop / population * 100
-  set-current-plot-pen "Central"
+  set-current-plot-pen "Central" 
   plot centralslumpoppercent
   set-current-plot-pen "Periphery"
-  plot peripheryslumpoppercent
+  plot peripheryslumpoppercent       
 end
 ;; END OF SECTION 3. SIMULATION
 ;******************************
@@ -1143,7 +1143,7 @@ Each pass through the Slumulate function represents a year in the time scale of 
 
 The POPGROWTHRATE slider sets the monthly population growth rate.
 
-The PERCENT-PRIME-LAND slider sets the percentage prime land in the city core.  The model is initialized to have a total number of rich households equal to number of prime land parcels.
+The PERCENT-PRIME-LAND slider sets the percentage prime land in the city core.  The model is initialized to have a total number of rich households equal to number of prime land parcels. 
 
 The PERCENT-INAPPROPRIATE-LAND slider sets the percentage inadequate land in the city core. The model is initialized to have a total number of poor households equal to number of inappropriate land parcels.
 
@@ -1151,9 +1151,9 @@ The DIFFUSION-RATE slider sets how fast the price diffusion occurs in the landsc
 
 The PRICE-SENSITIVITY slider determines how early a turtle 'senses' approaching prices that it can not afford whereas STAYING-POWER slider determines how long a turtle can stay before it actively starts searching for a new location that it can afford. Together they provide shorter or longer 'window of period' to find partners to share the facility.
 
-The INFORMAL-FORMAL-ECONOMY slider determines if informal sector is growing or formal sector is growing. if informal sector is growing, it increases income of low-income households proportionately more compared to high-income families. Conversely when formal economy is growing, it makes rich households rich faster than it increases income of poor households. When formal economy is growing, housing prices also rise more than when informal economy is growing.
+The INFORMAL-FORMAL-ECONOMY slider determines if informal sector is growing or formal sector is growing. if informal sector is growing, it increases income of low-income households proportionately more compared to high-income families. Conversely when formal economy is growing, it makes rich households rich faster than it increases income of poor households. When formal economy is growing, housing prices also rise more than when informal economy is growing. 
 
-The GDP display the sum of the incomes of all households in the city. POPULATION display the total number of households in the city.
+The GDP display the sum of the incomes of all households in the city. POPULATION display the total number of households in the city. 
 
 LIG POPULATION, MIG POPULATION and HIG POPULATION  monitors display the number of lower-income households ,middle-income households and higher-income households respectively.
 
@@ -1473,7 +1473,7 @@ Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 
 @#$#@#$#@
-NetLogo 5.3.1
+NetLogo 5.0
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
